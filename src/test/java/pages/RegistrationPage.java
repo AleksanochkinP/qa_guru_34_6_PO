@@ -1,8 +1,8 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import pages.components.ResultTableCheck;
 import pages.components.CalendarComponent;
-import pages.components.ResultComponent;
 
 import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Condition.text;
@@ -10,106 +10,99 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
-
-    private final SelenideElement firstNameInput = $("#firstName"),
+    private final SelenideElement fistNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
-            userEmailInput = $("#userEmail"),
-            genderSelect = $("#genterWrapper"),
+            eMailInput = $("#userEmail"),
+            genderWrapper = $("#genterWrapper"),
             userNumberInput = $("#userNumber"),
-            calendarInput = $("#dateOfBirthInput"),
-            subjectsInput = $("#subjectsInput"),
-            hobbiesSelect = $("#hobbiesWrapper"),
-            pictureSelect = $("#uploadPicture"),
-            userAddressInput = $("#currentAddress"),
-            stateAndCitySelect = $("#stateCity-wrapper"),
-            submitButton = $("#submit");
+            calendarInput =$("#dateOfBirthInput"),
+            subjectInput = $("#subjectsInput"),
+            hobbiesWrapper = $("#hobbiesWrapper"),
+            uploadPicture = $("#uploadPicture"),
+            currentAddress = $("#currentAddress"),
+            state = $("#state"),
+            city = $("#city"),
+            submit = $("#submit"),
+            results = $(".modal-body");
+
 
     CalendarComponent calendarComponent = new CalendarComponent();
-    ResultComponent resultComponent = new ResultComponent();
+    ResultTableCheck resultTable = new ResultTableCheck();
 
-    public RegistrationPage openPage() {
+
+    public RegistrationPage openPage(){
         open("/automation-practice-form");
-        $(".text-center").shouldHave(text("Practice Form"));
         return this;
     }
-
-    public RegistrationPage removeBanner() {
-        executeJavaScript("$('#fixedban').remove()");
+    public RegistrationPage closeBanner(){
+        executeJavaScript("$('#fixedban').remove()");//Закрывают баннеры
         executeJavaScript("$('footer').remove()");
         return this;
     }
-
-
-    public RegistrationPage setFirstName(String value) {
-        firstNameInput.setValue(value);
+    public RegistrationPage setFirstName(String value){
+        fistNameInput.setValue(value);
         return this;
     }
-
     public RegistrationPage setLastName(String value) {
         lastNameInput.setValue(value);
         return this;
     }
-
-    public RegistrationPage setUserEmail(String value) {
-        userEmailInput.setValue(value);
+    public RegistrationPage setEmail(String value) {
+        eMailInput.setValue(value);
         return this;
     }
-
-    public RegistrationPage setGender(String value) {
-        genderSelect.$(byText(value)).click();
+    public RegistrationPage setGender(String value){
+        genderWrapper.$(byText(value)).click();
         return this;
     }
-
-    public RegistrationPage setUserNumber(String value) {
+    public RegistrationPage setUserNumber(String value){
         userNumberInput.setValue(value);
         return this;
     }
-
-    public RegistrationPage setBirthDay(String day, String month, String year) {
+    public RegistrationPage setDateOfBirth(String day, String month, String year){
         calendarInput.click();
         calendarComponent.setDate(day, month, year);
         return this;
     }
-
-    public RegistrationPage setSubjects(String value) {
-        subjectsInput.setValue(value).pressEnter();
+    public RegistrationPage setSubjectInput (String value){
+        subjectInput.setValue(value).pressEnter();
         return this;
     }
-
-    public RegistrationPage setHobbies(String value) {
-        hobbiesSelect.$(byText(value)).click();
+    public RegistrationPage setHobbies(String value){
+        hobbiesWrapper.$(byText(value)).click();
         return this;
     }
-
-    public RegistrationPage setPicture(String value) {
-        pictureSelect.uploadFromClasspath(value);
+    public RegistrationPage selectUploadPicture (String value){
+        uploadPicture.uploadFromClasspath(value);
         return this;
     }
-
-    public RegistrationPage setAddress(String value) {
-        userAddressInput.scrollTo().setValue(value);
+    public RegistrationPage setAddress(String value){
+        currentAddress.setValue(value);
         return this;
     }
-
-    public RegistrationPage setStateAndCity(String state, String city) {
-        $("#state").click();
-        stateAndCitySelect.$(byText(state)).click();
-        $("#city").click();
-        stateAndCitySelect.$(byText(city)).click();
+    public RegistrationPage setState (String value){
+        state.click();
+        $(byText(value)).click();
         return this;
     }
-
-    public void submitForm() {
-        submitButton.click();
-    }
-
-    public RegistrationPage checkResult(String key, String value) {
-        resultComponent.checkResult(key, value);
+    public RegistrationPage setCity (String value){
+        city.click();
+        $(byText(value)).click();
         return this;
     }
-
-    public void checkInvalidInput() {
-        userNumberInput.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-
+    public RegistrationPage clickSubmit (){
+        submit.click();
+        return this;
     }
+    public RegistrationPage checkResult(String key, String value){
+        return this;
+    }
+    public ResultTableCheck getResultTable(){
+        return resultTable;
+    }
+    public void checkFirstNameColorInput (){
+        fistNameInput.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+    }
+
+
 }
