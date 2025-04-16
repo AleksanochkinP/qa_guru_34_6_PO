@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
@@ -20,7 +20,7 @@ public class AutoFormPageObjectTests extends TestBase {
     String uploadImage = "Исх. № ФС-3.25 от 22.01.pdf";
     String currentAddress = "Moscow Never Sleeps";
     String state = "NCR";
-    String city = "Noida"
+    String city = "Noida";
 
     @Test
     void successRegistrationTest() {
