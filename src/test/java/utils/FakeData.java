@@ -6,112 +6,72 @@ import com.github.javafaker.Faker;
 import java.util.Locale;
 
 public class FakeData {
-    Faker faker = new Faker(new Locale("en"));
-    public String name;
-    public String lastName;
-    public String email;
-    public String gender;
-    public String phoneNumber;
-    public String dayOfBirth;
-    public String monthOfBirth;
-    public String yearOfBirth;
-    public String subject;
-    public String hobbies;
-    public String picture;
-    public String address;
-    public String state;
-    public String city;
 
+    private static final Faker faker = new Faker(new Locale("en"));
 
-    public String getRandomFirstName() {
-        String fakeFirstName = faker.name().firstName();
-        name = fakeFirstName;
-        return fakeFirstName;
+    // Методы для получения случайных данных
+    public static String getRandomFirstName() {
+        return faker.name().firstName();
     }
 
-    public String getRandomLastName() {
-        String fakeLastName = faker.name().lastName();
-        lastName = fakeLastName;
-        return fakeLastName;
+    public static String getRandomLastName() {
+        return faker.name().lastName();
     }
 
-    public String getRandomEmail() {
-        String fakeEmail = faker.internet().emailAddress();
-        email = fakeEmail;
-        return fakeEmail;
+    public static String getRandomEmail() {
+        return faker.internet().emailAddress();
     }
 
-    public String getRandomGender() {
-        String fakeGender = faker.options().option("Male", "Female", "Other");
-        gender = fakeGender;
-        return fakeGender;
+    public static String getRandomGender() {
+        return faker.options().option("Male", "Female", "Other");
     }
 
-    public String getRandomPhoneNumber() {
-        String fakePhoneNumber = faker.phoneNumber().subscriberNumber(10);
-        phoneNumber = fakePhoneNumber;
-        return fakePhoneNumber;
+    public static String getRandomPhoneNumber() {
+        return faker.phoneNumber().subscriberNumber(10);
     }
 
-    public String getRandomDayOfBirth() {
-        String fakeDayOfBirth = String.format("%02d", faker.number().numberBetween(1, 28));
-        dayOfBirth = fakeDayOfBirth;
-        return fakeDayOfBirth;
+    public static String getRandomDayOfBirth() {
+        return String.format("%02d", faker.number().numberBetween(1, 28));
     }
 
-    public String getRandomMonthOfBirth() {
-        String fakeMonthOfBirth = faker.options().option("January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December");
-        monthOfBirth = fakeMonthOfBirth;
-        return fakeMonthOfBirth;
+    public static String getRandomMonthOfBirth() {
+        return faker.options().option(
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        );
     }
 
-    public String getRandomYearOfBirth() {
-        String fakeYearOfBirth = String.format("%02d", faker.number().numberBetween(1970, 2024));
-        yearOfBirth = fakeYearOfBirth;
-        return fakeYearOfBirth;
+    public static String getRandomYearOfBirth() {
+        return String.valueOf(faker.number().numberBetween(1970, 2024));
     }
 
-    public String getRandomSubject() {
-        String fakeSubject = faker.options().option("Physics", "Computer Science", "Chemistry", "Economics");
-        subject = fakeSubject;
-        return fakeSubject;
+    public static String getRandomSubject() {
+        return faker.options().option("Physics", "Computer Science", "Chemistry", "Economics");
     }
 
-    public String getRandomHobbies() {
-        String fakeHobbies = faker.options().option("Sports", "Reading", "Music");
-        hobbies = fakeHobbies;
-        return fakeHobbies;
+    public static String getRandomHobbies() {
+        return faker.options().option("Sports", "Reading", "Music");
     }
 
-    public String getRandomPicture() {
-        String randomPicture = faker.options().option( "Исх. № ФС-3.25 от 22.01.pdf");
-        picture = randomPicture;
-        return randomPicture;
+    public static String getRandomPicture() {
+        return "Исх. № ФС-3.25 от 22.01.pdf"; // Или можно оставить фиктивную опцию
     }
 
-    public String getRandomAddress() {
-        String fakeAddress = faker.address().fullAddress();
-        address = fakeAddress;
-        return fakeAddress;
+    public static String getRandomAddress() {
+        return faker.address().fullAddress();
     }
 
-    public String getRandomState() {
-        String randomState = faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
-        state = randomState;
-        return randomState;
+    public static String getRandomState() {
+        return faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
     }
 
-    public String getRandomCity(){
-        return city = (switch (state) {
+    public static String getRandomCity(String state) {
+        return switch (state) {
             case "NCR" -> faker.options().option("Delhi", "Gurgaon", "Noida");
             case "Uttar Pradesh" -> faker.options().option("Agra", "Lucknow", "Merrut");
             case "Haryana" -> faker.options().option("Karnal", "Panipat");
             case "Rajasthan" -> faker.options().option("Jaipur", "Jaiselmer");
             default -> null;
-        });
-
-
+        };
     }
-
 }
